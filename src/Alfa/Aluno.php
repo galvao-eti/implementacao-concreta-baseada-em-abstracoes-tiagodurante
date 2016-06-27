@@ -1,16 +1,8 @@
 <?php
     namespace Alfa;
 
-    class Aluno implements Abstracao\Entidade
+    class Aluno extends ClasseAbstrata
     {
-        private $nome;
-        private static $bd;
-
-        public function __construct(BaseBD $bd)
-        {
-            self::$bd = $bd;
-        }
-
         public function getNome()
         {
             return $this->nome;
@@ -23,28 +15,28 @@
 
         public function create($colunas, $valores)
         {
-            $entidade = substr(__CLASS__, strrpos(__CLASS__, '\\')+1);
+            $entidade = $this->getNome();
             $sql = "INSERT INTO $entidade (".implode(',', $colunas).") VALUES ('".implode("','", $valores)."')";
             $this->execQuery($sql);
         }
 
         public function retrieve($colunas, $clausula)
         {
-            $entidade = substr(__CLASS__, strrpos(__CLASS__, '\\')+1);
+            $entidade = $this->getNome();
             $sql = "SELECT ".implode(',', $colunas)." FROM $entidade WHERE ".implode(',', $clausula);
             $this->execQuery($sql);
         }
 
         public function update($colunas, $valores, $clausula)
         {
-            $entidade = substr(__CLASS__, strrpos(__CLASS__, '\\')+1);
+            $entidade = $this->getNome();
             $sql = "UPDATE $entidade SET ".implode(',', $valores)." WHERE ".implode(',', $clausula);
             $this->execQuery($sql);
         }
 
         public function delete($clausula)
         {
-            $entidade = substr(__CLASS__, strrpos(__CLASS__, '\\')+1);
+            $entidade = $this->getNome();
             $sql = "DELETE FROM $entidade WHERE ".implode(',', $clausula);
             $this->execQuery($sql);
         }

@@ -22,6 +22,7 @@
     var_dump($bd);
 
     $aluno = new Aluno($bd);
+    $aluno->setNome('aluno');
 
     $colunas = ["nome"];
     //$valores = ["nome = 'Tiago Amado Durante'"];
